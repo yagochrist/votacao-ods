@@ -1,115 +1,140 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Votação — Mostra sobre Abelhas</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffcd00;--muted:#9aa4b2;--glass:rgba(255,255,255,0.1)}
-    *{box-sizing:border-box}
-    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#071025 0%,#071829 100%); color:#e6eef8; padding:24px}
-    .wrap{width:100%;max-width:760px}
-    header.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:22px; box-shadow:0 6px 24px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.03)}
-    h1{margin:0 0 8px;font-size:20px}
-    p.lead{margin:0;color:var(--muted);line-height:1.4}
-    .card{margin-top:18px; background:var(--card); border-radius:14px; padding:18px; border:1px solid rgba(255,255,255,0.03)}
-    .options{display:flex;gap:12px;flex-wrap:wrap}
-    button.vote{flex:1; min-width:170px; display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;border:2px solid transparent;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:inherit;font-weight:600;font-size:16px;cursor:pointer;transition:transform .08s, box-shadow .12s}
-    button.vote:hover{transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.45)}
-    button.vote:active{transform:translateY(0)}
-    .thumb{font-size:20px}
-    .support{border-color:rgba(0,150,136,0.16)}
-    .against{border-color:rgba(239,68,68,0.12)}
-    .results{margin-top:14px}
-    .bar{height:14px;background:var(--glass);border-radius:10px;overflow:hidden;position:relative}
-    .fill{height:100%;width:0%;transition:width .6s ease}
-    .fill.support{background:linear-gradient(90deg,#3dd6b0,#00b894)}
-    .fill.against{background:linear-gradient(90deg,#ff7a7a,#ff3b30)}
-    .counts{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:14px}
-    .meta{display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
-    .small{font-size:13px;color:var(--muted)}
-    footer.info{margin-top:12px;color:var(--muted);font-size:13px}
-    .center{display:flex;align-items:center;gap:8px}
-    @media (max-width:520px){button.vote{min-width:unset;font-size:15px;padding:12px}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Votação — Mostra sobre Abelhas</title>
+<style>
+:root{--bg:#0f1724;--card:#0b1220;--accent:#ffcd00;--muted:#9aa4b2;--glass:rgba(255,255,255,0.1)}
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#071025 0%,#071829 100%); color:#e6eef8; padding:24px}
+.wrap{width:100%;max-width:760px}
+header.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:22px; box-shadow:0 6px 24px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.03)}
+h1{margin:0 0 8px;font-size:20px}
+p.lead{margin:0;color:var(--muted);line-height:1.4}
+.card{margin-top:18px; background:var(--card); border-radius:14px; padding:18px; border:1px solid rgba(255,255,255,0.03)}
+.options{display:flex;gap:12px;flex-wrap:wrap}
+button.vote{flex:1; min-width:170px; display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;border:2px solid transparent;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:inherit;font-weight:600;font-size:16px;cursor:pointer;transition:transform .08s, box-shadow .12s}
+button.vote:hover{transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.45)}
+button.vote:active{transform:translateY(0)}
+.thumb{font-size:20px}
+.support{border-color:rgba(0,150,136,0.16)}
+.against{border-color:rgba(239,68,68,0.12)}
+.results{margin-top:14px}
+.bar{height:14px;background:var(--glass);border-radius:10px;overflow:hidden;position:relative}
+.fill{height:100%;width:0%;transition:width .6s ease}
+.fill.support{background:linear-gradient(90deg,#3dd6b0,#00b894)}
+.fill.against{background:linear-gradient(90deg,#ff7a7a,#ff3b30)}
+.counts{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:14px}
+.meta{display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
+.small{font-size:13px;color:var(--muted)}
+.center{display:flex;align-items:center;gap:8px}
+@media (max-width:520px){button.vote{min-width:unset;font-size:15px;padding:12px}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="card" role="banner">
-      <h1>Você que assistiu à nossa apresentação, conhece nossa ideia.</h1>
-      <p class="lead">Se não conhece: nós participamos da mostra científica das escolas estaduais do Rio grande do Sul , e nosso trabalho foi sobre Abelhas e Sua Importância. Com o trabalho, descobrimos diversas coisas que as abelhas fazem, e também da extrema importância delas para o planeta e para a vida. Decidimos propor uma ODS (Objetivo de Desenvolvimento Social) a respeito delas, e contamos com o apoio de todos na nossa jornada!</p>
-    </header>
+<div class="wrap">
+<header class="card" role="banner">
+  <h1>Você que assistiu à nossa apresentação, conhece nossa ideia.</h1>
+  <p class="lead">Se não conhece: nós participamos da mostra científica das escolas estaduais do Rio Grande do Sul, e nosso trabalho foi sobre Abelhas e Sua Importância. Decidimos propor uma ODS (Objetivo de Desenvolvimento Social) a respeito delas, e contamos com o apoio de todos na nossa jornada!</p>
+</header>
 
-    <main class="card" role="main" aria-live="polite">
-      <div class="options" role="radiogroup" aria-label="Opções de votação">
-        <button id="btn-support" class="vote support" aria-checked="false" role="radio">
-          <span class="thumb">👍</span>
-          <span>Apoio!</span>
-        </button>
+<main class="card" role="main" aria-live="polite">
+  <div class="options" role="radiogroup" aria-label="Opções de votação">
+    <button id="btn-support" class="vote support" aria-checked="false" role="radio">
+      <span class="thumb">👍</span>
+      <span>Apoio!</span>
+    </button>
 
-        <button id="btn-against" class="vote against" aria-checked="false" role="radio">
-          <span class="thumb">👎</span>
-          <span>Não apoio.</span>
-        </button>
-      </div>
-
-      <div class="results" id="results">
-        <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;">
-          <div style="flex:1; margin-right:12px">
-            <div class="small">Apoio: <strong id="pct-support">0%</strong></div>
-            <div class="bar" aria-hidden="true"><div id="bar-support" class="fill support"></div></div>
-          </div>
-          <div style="width:110px;text-align:right">
-            <div class="small">Não apoio: <strong id="pct-against">0%</strong></div>
-            <div class="bar" aria-hidden="true"><div id="bar-against" class="fill against"></div></div>
-          </div>
-        </div>
-        <div class="counts"><span id="count-support">0 votos</span><span id="count-against">0 votos</span></div>
-      </div>
-
-      <div class="meta">
-        <div class="center small">Status: <span id="status">Você ainda não votou.</span></div>
-      </div>
-    </main>
+    <button id="btn-against" class="vote against" aria-checked="false" role="radio">
+      <span class="thumb">👎</span>
+      <span>Não apoio.</span>
+    </button>
   </div>
 
-  <script>
-    const btnSupport = document.getElementById('btn-support');
-    const btnAgainst = document.getElementById('btn-against');
-    const pctSupport = document.getElementById('pct-support');
-    const pctAgainst = document.getElementById('pct-against');
-    const barSupport = document.getElementById('bar-support');
-    const barAgainst = document.getElementById('bar-against');
-    const countSupport = document.getElementById('count-support');
-    const countAgainst = document.getElementById('count-against');
-    const results = document.getElementById('results');
-    const status = document.getElementById('status');
+  <div class="results" id="results">
+    <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;">
+      <div style="flex:1; margin-right:12px">
+        <div class="small">Apoio: <strong id="pct-support">0%</strong></div>
+        <div class="bar" aria-hidden="true"><div id="bar-support" class="fill support"></div></div>
+      </div>
+      <div style="width:110px;text-align:right">
+        <div class="small">Não apoio: <strong id="pct-against">0%</strong></div>
+        <div class="bar" aria-hidden="true"><div id="bar-against" class="fill against"></div></div>
+      </div>
+    </div>
+    <div class="counts"><span id="count-support">0 votos</span><span id="count-against">0 votos</span></div>
+  </div>
 
-    let support = 0;
-    let against = 0;
-    let voted = false;
+  <div class="meta">
+    <div class="center small">Status: <span id="status">Você ainda não votou.</span></div>
+  </div>
+</main>
+</div>
 
-    function render(){
-      const total = support + against;
-      const pSup = total>0 ? Math.round((support/total)*100) : 0;
-      const pAga = total>0 ? 100 - pSup : 0;
+<script>
+  const SHEET_URL = 'COLE_AQUI_A_URL_DO_WEB_APP'; // URL do Apps Script Web App
 
-      pctSupport.textContent = pSup+'%';
-      pctAgainst.textContent = pAga+'%';
-      barSupport.style.width = pSup+'%';
-      barAgainst.style.width = pAga+'%';
-      countSupport.textContent = support+' votos';
-      countAgainst.textContent = against+' votos';
+  const btnSupport = document.getElementById('btn-support');
+  const btnAgainst = document.getElementById('btn-against');
+  const pctSupport = document.getElementById('pct-support');
+  const pctAgainst = document.getElementById('pct-against');
+  const barSupport = document.getElementById('bar-support');
+  const barAgainst = document.getElementById('bar-against');
+  const countSupport = document.getElementById('count-support');
+  const countAgainst = document.getElementById('count-against');
+  const status = document.getElementById('status');
+
+  let voted = localStorage.getItem('voted') === 'true';
+
+  function render(support, against){
+    const total = support + against;
+    const pSup = total>0 ? Math.round((support/total)*100) : 0;
+    const pAga = total>0 ? 100 - pSup : 0;
+
+    pctSupport.textContent = pSup+'%';
+    pctAgainst.textContent = pAga+'%';
+    barSupport.style.width = pSup+'%';
+    barAgainst.style.width = pAga+'%';
+    countSupport.textContent = support+' votos';
+    countAgainst.textContent = against+' votos';
+  }
+
+  // Buscar votos atuais
+  async function fetchVotes(){
+    try{
+      const res = await fetch(SHEET_URL);
+      const data = await res.json();
+      render(data.Apoio || 0, data.NaoApoio || 0);
+    } catch(e){
+      console.error('Erro ao buscar votos', e);
     }
+  }
 
-    btnSupport.addEventListener('click',()=>{
-      if(!voted){support++;voted=true;status.textContent='Você votou em Apoio!';render();}
-    });
-    btnAgainst.addEventListener('click',()=>{
-      if(!voted){against++;voted=true;status.textContent='Você votou em Não Apoio.';render();}
-    });
+  // Enviar voto
+  async function vote(type){
+    if(voted) return;
+    voted = true;
+    localStorage.setItem('voted', true);
+    localStorage.setItem('votedFor', type);
+    status.textContent = type==='Apoio' ? 'Você votou em Apoio!' : 'Você votou em Não Apoio.';
 
-    render(); // inicializa barras cinzas mesmo sem votos
-  </script>
+    try{
+      await fetch(SHEET_URL, {
+        method:'POST',
+        body: JSON.stringify({tipo:type})
+      });
+      fetchVotes(); // Atualiza contagem após voto
+    } catch(e){
+      console.error('Erro ao enviar voto', e);
+    }
+  }
+
+  btnSupport.addEventListener('click', ()=> vote('Apoio'));
+  btnAgainst.addEventListener('click', ()=> vote('NaoApoio'));
+
+  // Inicializa
+  fetchVotes();
+</script>
 </body>
 </html>
