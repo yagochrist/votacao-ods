@@ -109,7 +109,7 @@ button.vote:active{transform:translateY(0)}
 </div>
 
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyOAmMGUBuR3U-itFJJGJtnn1I7jjkYEfkybqOofTbgXarYTAF9uIPj9qdd8NCCelf3/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyJL_Bv2zaelPC0XSQyUYl8_sHK7eIxndCWOM9MEf3FkTQFRPSDdco2jgmgYIlQi7nP/exec';
 
 const btnSupport = document.getElementById('btn-support');
 const btnAgainst = document.getElementById('btn-against');
@@ -139,7 +139,7 @@ async function fetchVotes(){
   try{
     const res = await fetch(SHEET_URL);
     const data = await res.json();
-    render(data.Apoio || 0, data.NaoApoio || 0);
+    render(data.apoio || 0, data.NaoApoio || 0);
   } catch(e){
     console.error('Erro ao buscar votos', e);
   }
