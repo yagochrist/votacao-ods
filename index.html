@@ -109,7 +109,7 @@ button.vote:active{transform:translateY(0)}
 </div>
 
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzUUwhGl2A_ZiuOyJJYcuYlNr_NRlf8M-VYovPRmKfK6UyliAPr1pPmQ14gd-KfEacM/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyOAmMGUBuR3U-itFJJGJtnn1I7jjkYEfkybqOofTbgXarYTAF9uIPj9qdd8NCCelf3/exec';
 
 const btnSupport = document.getElementById('btn-support');
 const btnAgainst = document.getElementById('btn-against');
@@ -166,7 +166,9 @@ async function vote(type){
 btnSupport.addEventListener('click', ()=> vote('Apoio'));
 btnAgainst.addEventListener('click', ()=> vote('NaoApoio'));
 
+// Atualizar votos a cada 5 segundos
 fetchVotes();
+setInterval(fetchVotes, 5000);
 </script>
 </body>
 </html>
