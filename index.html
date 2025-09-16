@@ -109,7 +109,7 @@ button.vote:active{transform:translateY(0)}
 </div>
 
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxoMY88uLaswSDK5XOUE5YA9LBYTOQ0LbBOtsACkg09rua2OpZGxgWsyWRr9ETsF_n3/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzHsiv-KVd5N7psYLz5DNM9kleJL7RIipUMqf5jAwJLn0qRNdSlaMoNUUMDsTZZiQr2/exec';
 
 const btnSupport = document.getElementById('btn-support');
 const btnAgainst = document.getElementById('btn-against');
@@ -139,13 +139,12 @@ async function fetchVotes(){
   try{
     const res = await fetch(SHEET_URL);
     const data = await res.json();
-    console.log(data); // veja no console os nomes retornados
 
-    // Forçar compatibilidade com maiúsculas/minúsculas
-    const support = data.Apoio ?? data.apoio ?? 0;
-    const against = data.NaoApoio ?? data.naoApoio ?? 0;
-    render(support, against);
+    // Garantir que nomes diferentes de maiúsculas/minúsculas funcionem
+    const apoio = data.apoio || data.Apoio || 0;
+    const naoApoio = data.naoApoio || data.NaoApoio || 0;
 
+    render(apoio, naoApoio);
   } catch(e){
     console.error('Erro ao buscar votos', e);
   }
